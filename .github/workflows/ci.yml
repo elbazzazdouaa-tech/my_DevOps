@@ -1,0 +1,26 @@
+name: CI - DevOps Demo
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verification:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Recuperer le code
+        uses: actions/checkout@v4
+
+      - name: Verifier HTML
+        run: test -f index.html
+
+      - name: Verifier JavaScript
+        run: |
+          test -f script.js
+          node --check script.js
+
+      - name: Verification terminee
+        run: echo "HTML et JavaScript verifies avec succes !"
