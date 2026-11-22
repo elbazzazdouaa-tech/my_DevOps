@@ -14,13 +14,27 @@ jobs:
       - name: Recuperer le code
         uses: actions/checkout@v4
 
+      - name: Afficher les fichiers
+        run: ls -la
+
       - name: Verifier HTML
-        run: test -f index.html
+        run: |
+          if [ -f index.html ]; then
+            echo "Fichier HTML trouve !"
+          else
+            echo "Erreur : index.html introuvable"
+            exit 1
+          fi
 
       - name: Verifier JavaScript
         run: |
-          test -f script.js
-          node --check script.js
+          if [ -f script.js ]; then
+            echo "Fichier JavaScript trouve !"
+            node --check script.js
+          else
+            echo "Erreur : script.js introuvable"
+            exit 1
+          fi
 
       - name: Verification terminee
         run: echo "HTML et JavaScript verifies avec succes !"
